@@ -39,8 +39,6 @@ public class UsuarioController {
     public ResponseEntity<?> listarAtributo(@Valid @RequestBody UsuarioListDTO usuarioListDTO, HttpServletResponse resp) {
         try {
             List<Map<String,Object>> lista = usuarioModel.listarAtribuicoes(1, usuarioListDTO);
-            System.out.println(lista);
-            //flushJSON(resp.getOutputStream(), lista);
             return ResponseEntity.ok().body(lista);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
