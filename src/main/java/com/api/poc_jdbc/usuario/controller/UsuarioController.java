@@ -2,6 +2,7 @@ package com.api.poc_jdbc.usuario.controller;
 
 import com.api.poc_jdbc.usuario.dto.UsuarioListDTO;
 import com.api.poc_jdbc.usuario.model.UsuarioModel;
+import com.api.poc_jdbc.usuario.pdf.UsuarioPdf;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletOutputStream;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioModel usuarioModel ;
+    private UsuarioModel usuarioModel;
 
     @Operation(
             summary = "Listar usuários",
@@ -47,6 +48,16 @@ public class UsuarioController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/pdf")
+    public void gerarPdf(@Valid @RequestBody UsuarioListDTO usuarioListDTO, HttpServletResponse response) {
+        try {
+            List<Map<String,Object>> lista = usuarioModel.listar(1, usuarioListDTO);
+            UsuarioPdf usuarioPdf = new UsuarioPdf().gerarPdf(response, lista);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
     }
 }
