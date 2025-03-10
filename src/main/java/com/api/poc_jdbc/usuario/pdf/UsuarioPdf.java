@@ -67,7 +67,7 @@ public class UsuarioPdf {
                         .setTextAlignment(TextAlignment.CENTER)
                         .setVerticalAlignment(VerticalAlignment.MIDDLE));
 
-                tabela.addCell(new Cell().add(new Paragraph(p.get("ativo").toString()))
+                tabela.addCell(new Cell().add(new Paragraph(p.get("ativo").toString().equals("S") ? "Ativo" : "Inativo"))
                         .setTextAlignment(TextAlignment.CENTER)
                         .setVerticalAlignment(VerticalAlignment.MIDDLE));
             }
